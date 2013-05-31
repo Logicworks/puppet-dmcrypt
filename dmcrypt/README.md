@@ -19,7 +19,7 @@ There are some more ToDo open.
  - Creating a (better) documentation.
  - Checking that the decryption process isn't logged to the local system or:
  - Ensure this is secure enough.(including puppet-secure)
- - Turn it into a real puppet module.
+ - Turn it into a real puppet module.([SMP-1919](https://midgard.intra.t-online.de/gard/browse/SMBCAP-1919))
  - Enable puppet-lint for more beauty.
  - Release it on github.
  - Stuff that I miss?
