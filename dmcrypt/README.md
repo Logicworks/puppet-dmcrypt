@@ -18,7 +18,7 @@ There are some more ToDo open.
 
  - Creating a (better) documentation.
  - Checking that the decryption process isn't logged to the local system or:
- - Ensure this is secure enough.
+ - Ensure this is secure enough.(including puppet-secure)
  - Turn it into a real puppet module.
  - Enable puppet-lint for more beauty.
  - Release it on github.
@@ -28,13 +28,13 @@ There are some more ToDo open.
 
 ## Run it ##
 
+To create a devices:
+
 	puppet apply create-dmcrypt-devices.pp
 
+To mount it:
 
 	puppet apply mount-dmcrypt.pp
-
-
-
 
 ## Version ##
 
