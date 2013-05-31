@@ -27,3 +27,5 @@ define create_encryption ($input_disk_to_encrypt, $input_dmcrypt_password) {
 }
 
 create_encryption { 'encryp_sdc': input_disk_to_encrypt => "sdc", input_dmcrypt_password => "asdfghjkl"}
+
+# Need to create a fsck
