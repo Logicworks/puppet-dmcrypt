@@ -83,6 +83,7 @@ define decrypt_and_mount ($input_device, $input_mount_point, $input_dmcrypt_name
   package {'cryptsetup':
     ensure => installed
   }
+# Current solution is to use a files in respect of the 
 decrypt_and_mount { 'mount_ceph_osd-1': input_device => 'sdb',
                                         input_mount_point => '/var/lib/ceph/osd/ceph-1',
                                         input_dmcrypt_name => 'CEPH-OSD.1',
