@@ -56,7 +56,9 @@
 #:
 # arguments
 #
-define decrypt_and_mount ($input_device, $input_mount_point, $input_dmcrypt_name, $input_dmcrypt_key) {
+define decrypt_and_mount ($input_device, $input_mount_point, $input_dmcrypt_name, $input_dmcrypt_key_file) {
+
+     #inline_template(...)
 
     block_devices_test { "test_${input_device}": device => "$input_device"}
     mount_point_test { "test_mountpoint_${input_mount_point}": mount_point => "${input_mount_point}", device => "${input_device}"}
@@ -65,8 +67,9 @@ define decrypt_and_mount ($input_device, $input_mount_point, $input_dmcrypt_name
     exec { "decrypt_dmcrypt_device-${input_device}":
         require => Exec["is_existing_mount_point-${input_mount_point}", "is_true_luksdevice-${input_device}"],
         unless => "/sbin/cryptsetup status /dev/mapper/${input_dmcrypt_name}",
-        command => "/bin/echo -n ${input_dmcrypt_key} |/sbin/cryptsetup luksOpen /dev/${input_device} ${input_dmcrypt_name} -d -",
+        command => "/sbin/cryptsetup luksOpen /dev/${input_device} ${input_dmcrypt_name} -d ${input_dmcrypt_key_file}",
     }
+
     exec { "mount_dmcrypt_device-${input_device}":
         require => Exec["decrypt_dmcrypt_device-${input_device}"],
         unless => "/bin/mount |grep '/dev/mapper/${input_dmcrypt_name}'",
@@ -83,9 +86,9 @@ define decrypt_and_mount ($input_device, $input_mount_point, $input_dmcrypt_name
 decrypt_and_mount { 'mount_ceph_osd-1': input_device => 'sdb',
                                         input_mount_point => '/var/lib/ceph/osd/ceph-1',
                                         input_dmcrypt_name => 'CEPH-OSD.1',
-                                        input_dmcrypt_key => 'asdfghjkl', }
+                                        input_dmcrypt_key_file => '/tmp/CEPH-OSD.1.key', }
 
 decrypt_and_mount { 'mount_ceph_osd-3': input_device => 'sdc',
                                         input_mount_point => '/var/lib/ceph/osd/ceph-3',
                                         input_dmcrypt_name => 'CEPH-OSD.3',
-                                        input_dmcrypt_key => 'asdfghjkl', }
+                                        input_dmcrypt_key_file => '/tmp/CEPH-OSD.3.key', }
