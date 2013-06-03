@@ -16,7 +16,7 @@ The manifest will check for all variables.
 
 There are some more ToDo open.
 
- - Function to create fs.
+ - Function to create file system.
  - Creating a (better) documentation.
  - Checking that the decryption process isn't logged to the local system or:
  - Ensure this is secure enough.(including puppet-secure)
