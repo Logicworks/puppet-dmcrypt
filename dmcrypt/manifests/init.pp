@@ -88,13 +88,21 @@ define dmcrypt::luksOpen($name, $key_file) {
 define dmcrypt::luksDevice($name, $mount_point) {
   $device = $title
 
-  dmcrypt::luksFormat {$device:
-    key_file => "/tmp/${name}.key",
+  $secret_path = "puppet:///secrets/$name"
+  $key_file = "/root/${name}.key"
+
+  file {$key_file:
+    ensure  => present,
+    mode    => '0600',
+    source  => $secret_path,
+  }
+  -> dmcrypt::luksFormat {$device:
+    key_file => $key_file,
     notify   => Exec["format-${device}"]
   }
   -> dmcrypt::luksOpen {$device:
     name     => $name,
-    key_file => "/tmp/${name}.key",
+    key_file => $key_file,
   }
   ~> mount {$mount_point:
     ensure    => mounted,
