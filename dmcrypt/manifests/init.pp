@@ -34,7 +34,7 @@ define dmcrypt::luksFormat($key_file) {
   $device = $title
 
   exec {"luksFormat-${device}":
-    path    => "/bin:/usr/bin:/usr/sbin:/sbin",
+    path    => '/bin:/usr/bin:/usr/sbin:/sbin',
     command => "cryptsetup -q \
                 --cipher aes-xts-plain64 \
                 --key-size 512 \
@@ -106,9 +106,9 @@ define dmcrypt::luksDevice($name, $mount_point) {
   }
 
   exec {"format-${device}":
-    command => "mkfs.xfs -L ${name} /dev/mapper/${name}",
-    path    => "/bin:/usr/bin:/usr/sbin:/sbin",
-    require => [Package['xfsprogs'], Exec["luksOpen-${device}"]],
+    command     => "mkfs.xfs -L ${name} /dev/mapper/${name}",
+    path        => '/bin:/usr/bin:/usr/sbin:/sbin',
+    require     => [Package['xfsprogs'], Exec["luksOpen-${device}"]],
     refreshonly => true
   }
 }
