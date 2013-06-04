@@ -1,3 +1,14 @@
+##
+# This type encrypts a device with a random key, formats it and mounts it
+# at /var/lib/nova/instances/ so that it is used for the nova instances
+#
+# Parameters:
+#   $title = device to used
+#
+# Usage:
+#
+# ephemeral_nova {'/dev/sdb2': }
+#
 define ephemeral_nova() {
   $device = $title
 
@@ -31,6 +42,6 @@ define ephemeral_nova() {
   exec {'/usr/sbin/service mount-nova start':
     require   => File['/etc/init/mount-nova.conf'],
     subscribe => File['/etc/init/mount-nova.conf'],
-    unless    => '/usr/bin/test -d /var/lib/nova/instances/lost+found'
+    creates   => '/var/lib/nova/instances/lost+found'
   }
 }
