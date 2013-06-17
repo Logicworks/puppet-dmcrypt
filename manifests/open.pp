@@ -5,4 +5,5 @@ class dmcrypt::open($device, $name){
     command => "/sbin/cryptsetup luksOpen /dev/${device} ${name} -d ${key_file}",
     creates => "/dev/mapper/${name}",
     require => Package['cryptsetup']
+	}
 }
