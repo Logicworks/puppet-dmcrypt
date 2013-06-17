@@ -6,8 +6,8 @@ class dmcrypt::encryption {
 
   $device = $title
 
-  $secret_path = "puppet:///secrets/$name"
-  $key_file = "/root/${name}.key"
+  $secret_path = "puppet:///secrets/${title}"
+  $key_file = "/root/${title}.key"
 
   file {$key_file:
     ensure  => present,
@@ -34,4 +34,9 @@ define dmcrypt::luksFormat($key_file) {
     require => Package['cryptsetup']
   }
 }
+  dmcrypt::luksFormat {$device:
+    key_file => $key_file,
+    notify   => Exec["format-${device}"]
+  }
+
 }
