@@ -36,7 +36,7 @@ define dmcrypt::luksFormat($key_file) {
 }
   dmcrypt::luksFormat {$device:
     key_file => $key_file,
-    notify   => Exec["format-${device}"]
+    #notify   => Exec["format-${device}"]
   }
 
 }
