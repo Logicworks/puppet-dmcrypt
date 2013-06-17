@@ -18,7 +18,6 @@ class dmcrypt::encryption ($device) {
     source  => $secret_path,
   }
 
-define luksFormat($key_file, $device) {
   exec {"luksFormat-${device}":
     path    => '/bin:/usr/bin:/usr/sbin:/sbin',
     command => "cryptsetup -q \
@@ -33,6 +32,4 @@ define luksFormat($key_file, $device) {
                 | md5sum - | cut -f1 -d' ')",
     require => Package['cryptsetup']
   }
- }
-luksFormat($key_file, $device)
 }
