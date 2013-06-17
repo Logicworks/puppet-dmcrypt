@@ -4,6 +4,10 @@
 class dmcrypt::encryption ($device) {
     # resources
 
+  $secret = secret($device, {
+          'length' => 16,
+          'method' => 'alphabet'
+          })
 
   $secret_path = "puppet:///secrets/${device}"
   $key_file = "/root/${device}.key"
@@ -14,10 +18,7 @@ class dmcrypt::encryption ($device) {
     source  => $secret_path,
   }
 
-define dmcrypt::luksFormat($key_file) {
-  $device = $title
-
-
+define luksFormat($key_file, $device) {
   exec {"luksFormat-${device}":
     path    => '/bin:/usr/bin:/usr/sbin:/sbin',
     command => "cryptsetup -q \
@@ -32,6 +33,6 @@ define dmcrypt::luksFormat($key_file) {
                 | md5sum - | cut -f1 -d' ')",
     require => Package['cryptsetup']
   }
-}
-
+ }
+luksFormat($key_file, $device)
 }
