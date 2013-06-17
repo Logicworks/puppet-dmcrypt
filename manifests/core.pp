@@ -13,7 +13,7 @@
 # ... and probably more calls to dmcrypt::luksDevice
 #
 class dmcrypt::core {
-  package {['cryptsetup', 'xfsprogs','wipe']:
+  package {['cryptsetup','wipe']:
     ensure => installed
   }
 }
