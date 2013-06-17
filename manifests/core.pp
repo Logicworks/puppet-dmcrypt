@@ -3,7 +3,7 @@
 #
 # Usage:
 #
-#  class {'dmcrypt': }
+#  class {'dmcrypt::core': }
 #
 #  dmcrypt::luksDevice {'/dev/vdb1':
 #    name        => 'osd-1',
