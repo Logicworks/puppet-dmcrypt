@@ -27,9 +27,9 @@ define dmcrypt::luksFormat($key_file) {
                 --hash sha512 \
                 --use-urandom \
                 --key-file ${key_file} \
-                luksFormat ${device}",
+                luksFormat /dev/${device}",
     onlyif  => "test f1c9645dbc14efddc7d8a322685f26eb = \
-                $(dd if=${device} bs=1k count=10k 2>/dev/null \
+                $(dd if=/dev/${device} bs=1k count=10k 2>/dev/null \
                 | md5sum - | cut -f1 -d' ')",
     require => Package['cryptsetup']
   }
