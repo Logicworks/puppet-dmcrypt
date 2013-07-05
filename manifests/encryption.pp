@@ -1,7 +1,7 @@
 # Class: dmcrypt::encryption
 #
 #
-class dmcrypt::encryption ($device) {
+define dmcrypt::encryption ($device) {
     # resources
 
   $secret = secret($device, {

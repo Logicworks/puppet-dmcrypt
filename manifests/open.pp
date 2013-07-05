@@ -1,4 +1,4 @@
-class dmcrypt::open($device, $name){
+define dmcrypt::open($device, $name){
 
   $key_file = "/root/${device}.key"
   exec {"luksOpen-${device}":
