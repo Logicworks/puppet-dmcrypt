@@ -30,6 +30,6 @@ define dmcrypt::encryption ($device) {
     onlyif  => "test f1c9645dbc14efddc7d8a322685f26eb = \
                 $(dd if=/dev/${device} bs=1k count=10k 2>/dev/null \
                 | md5sum - | cut -f1 -d' ')",
-    require => Package['cryptsetup']
+    require => [ Package['cryptsetup'], File["${key_file}"] ]
   }
 }
