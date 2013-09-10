@@ -1,22 +1,25 @@
 # Class: dmcrypt::encryption
 #
 #
-define dmcrypt::encryption ($device) {
-    # resources
+define dmcrypt::encryption (
+  $device,
+  $host_secret = false,
+  $secret      = undef,
+) {
+  # resources
+  if $host_secret == true {
+    # in this case already defined!
+    $secret_name = "dmcrypt-${::hostname}"
+  } else {
+    $secret_name = "${device}"
 
-  $secret = secret($device, {
-          'length' => 16,
-          'method' => 'alphabet'
-          })
-
-  $secret_path = "puppet:///secrets/${device}"
-  $key_file = "/root/${device}.key"
-
-  file {$key_file:
-    ensure  => present,
-    mode    => '0600',
-    source  => $secret_path,
+    dmcrypt::key { "${secret_name}":
+      key_name      => $secret_name,
+      custom_secret => $secret,
+    }
   }
+
+  $key_file = "/root/${secret_name}.key"
 
   exec {"luksFormat-${device}":
     path    => '/bin:/usr/bin:/usr/sbin:/sbin',

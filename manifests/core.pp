@@ -12,8 +12,22 @@
 #
 # ... and probably more calls to dmcrypt::luksDevice
 #
-class dmcrypt::core {
+class dmcrypt::core (
+  $host_secret = false,
+  $secret      = undef,
+){
   package {['cryptsetup','wipe']:
     ensure => installed
   }
+
+  if $host_secret == true {
+    # in this case already defined!
+    $secret_name = "dmcrypt-${::hostname}"
+
+    dmcrypt::key { "${secret_name}":
+      key_name      => $secret_name,
+      custom_secret => $secret,
+    }
+  }
+
 }
