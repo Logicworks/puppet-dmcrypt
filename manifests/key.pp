@@ -1,5 +1,27 @@
-# Class: dmcrypt::key
+# Define: dmcrypt::key
 #
+# Generate a key file to be used with dmcrypt
+#
+# == Name
+#   Unused
+# == Parameters
+# [*key_name*] The name of the key.
+#   Mandatory.
+#
+# [*custom_secret*] A secret to be used in the key. 
+#   Optional.
+#
+# == Dependencies
+#
+# puppet-secret if no custom secret is used
+#
+# == Authors
+#
+#  Danny Al-Gaaf <d.al-gaaf@telekom.de>
+#
+# == Copyright
+#
+# Copyright 2013 Deutsche Telekom AG
 #
 define dmcrypt::key (
   $key_name,
