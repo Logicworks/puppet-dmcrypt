@@ -1,3 +1,8 @@
+puppet-dmcrypt
+==============
+
+puppet module to use dmcrypt/LUKS
+
 About
 =====
 
@@ -26,8 +31,9 @@ To format /dev/sdb2 to be used as a self-destructing nova-instance storage do th
 Compatibility
 =============
 
-
 Works at least on Ubuntu 12.04 with puppet 2.7.11 and cryptsetup 1.4.1.
 
-
-
+ToDo
+=====
+ - Testing
+ - Update of documentation
