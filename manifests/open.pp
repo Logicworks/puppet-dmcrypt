@@ -4,7 +4,7 @@
 #
 # Set the $host_secret parameter if you want to use only
 # one secret/key per host for all the later setup devices in
-# this node. 
+# this node.
 #
 # == Name
 #   Unused
@@ -12,7 +12,7 @@
 # [*device*] The device to open as LUKS device
 #   Mandatory.
 #
-# [*name*] The mapping name. 
+# [*name*] The mapping name.
 #   Mandatory.
 #
 # [*host_secret*] If one secret/key per host should be used
@@ -48,6 +48,6 @@ define dmcrypt::open(
     path    => "/usr/sbin:/usr/bin:/sbin:/bin:",
     command => "cryptsetup luksOpen /dev/${device} ${name} -d ${key_file}",
     creates => "/dev/mapper/${name}",
-    require => Package['cryptsetup']
+    require => Package['cryptsetup-luks']
   }
 }
