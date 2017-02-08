@@ -48,7 +48,7 @@ define dmcrypt::luksOpen($name, $key_file) {
   exec {"luksOpen-${device}":
     command => "/sbin/cryptsetup luksOpen ${device} ${name} -d ${key_file}",
     creates => "/dev/mapper/${name}",
-    require => Package['cryptsetup']
+    require => Package['cryptsetup-luks']
   }
 }
 
