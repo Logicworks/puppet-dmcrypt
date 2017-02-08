@@ -70,16 +70,16 @@ define dmcrypt::luksOpen($name, $key_file) {
 #
 # Postcondition:
 #  The given device is decrypted and available a the given mountpoint
-define dmcrypt::luksDevice($name, $mount_point) {
+define dmcrypt::luksDevice($name, $mount_point, $key_source) {
   $device = $title
 
-  $secret_path = "puppet:///secrets/$hostname"
+#  $secret_path = "puppet:///secrets/$hostname"
   $key_file = "/root/${hostname}.key"
 
   file {$key_file:
     ensure  => present,
     mode    => '0600',
-    source  => $secret_path,
+    source  => $key_source,
   }
   -> dmcrypt::luksFormat {$device:
     key_file => $key_file,
