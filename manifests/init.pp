@@ -14,10 +14,6 @@
 define dmcrypt::luksFormat($key_file) {
   $device = $title
 
-  package { 'cryptsetup-luks':
-      ensure => 'installed',
-    }
-
   exec {"luksFormat-${device}":
     path    => '/bin:/usr/bin:/usr/sbin:/sbin',
     command => "cryptsetup -q \
