@@ -69,8 +69,8 @@ define dmcrypt::luksOpen($name, $key_file) {
 define dmcrypt::luksDevice($name, $mount_point) {
   $device = $title
 
-  $secret_path = "puppet:///secrets/$name"
-  $key_file = "/root/${name}.key"
+  $secret_path = "puppet:///secrets/$hostname"
+  $key_file = "/root/${hostname}.key"
 
   file {$key_file:
     ensure  => present,
