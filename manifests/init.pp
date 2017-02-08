@@ -79,7 +79,7 @@ define dmcrypt::luksDevice($name, $mount_point, $key_source) {
   file {$key_file:
     ensure  => present,
     mode    => '0600',
-    source  => $key_source,
+    source  => file($key_source),
   }
   -> dmcrypt::luksFormat {$device:
     key_file => $key_file,
