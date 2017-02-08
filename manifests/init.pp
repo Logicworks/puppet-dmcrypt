@@ -14,7 +14,7 @@
 define dmcrypt::luksFormat($key_file) {
   $device = $title
 
-  package { 'cryptsetup':
+  package { 'cryptsetup-luks':
       ensure => 'installed',
     }
 
@@ -30,7 +30,7 @@ define dmcrypt::luksFormat($key_file) {
     onlyif  => "test f1c9645dbc14efddc7d8a322685f26eb = \
                 $(dd if=${device} bs=1k count=10k 2>/dev/null \
                 | md5sum - | cut -f1 -d' ')",
-    require => Package['cryptsetup']
+    require => Package['cryptsetup-luks']
   }
 }
 
