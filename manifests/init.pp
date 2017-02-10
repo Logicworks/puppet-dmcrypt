@@ -81,6 +81,11 @@ define dmcrypt::luksDevice($name, $mount_point, $key_source) {
     mode    => '0600',
     source  => $key_source,
   }
+
+  file {$mount_point:
+    ensure => directory,
+  }
+
   -> dmcrypt::luksFormat {$device:
     key_file => $key_file,
     notify   => Exec["format-${device}"]
