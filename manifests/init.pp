@@ -14,6 +14,10 @@
 define dmcrypt::luksFormat($key_file) {
   $device = $title
 
+  package {'cryptsetup':
+    ensure => installed
+  }
+
   exec {"luksFormat-${device}":
     path    => '/bin:/usr/bin:/usr/sbin:/sbin',
     command => "cryptsetup -q \
@@ -26,7 +30,7 @@ define dmcrypt::luksFormat($key_file) {
     onlyif  => "test f1c9645dbc14efddc7d8a322685f26eb = \
                 $(dd if=${device} bs=1k count=10k 2>/dev/null \
                 | md5sum - | cut -f1 -d' ')",
-    require => Package['cryptsetup-luks']
+    require => Package['cryptsetup']
   }
 }
 
@@ -48,7 +52,7 @@ define dmcrypt::luksOpen($name, $key_file) {
   exec {"luksOpen-${device}":
     command => "/sbin/cryptsetup luksOpen ${device} ${name} -d ${key_file}",
     creates => "/dev/mapper/${name}",
-    require => Package['cryptsetup-luks']
+    require => Package['cryptsetup']
   }
 }
 
