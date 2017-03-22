@@ -104,7 +104,7 @@ define dmcrypt::luksDevice($name, $mount_point, $key_source, $vol_label) {
   }
 
   exec {"format-${device}":
-    command     => "mkfs.ext4 -L ${name} /dev/mapper/${name}",
+    command     => "mkfs.ext4 -L ${vol_label} /dev/mapper/${name}",
     path        => '/bin:/usr/bin:/usr/sbin:/sbin',
     require     => [Exec["luksOpen-${device}"]],
     refreshonly => true
