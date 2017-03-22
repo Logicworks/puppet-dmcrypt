@@ -1,5 +1,5 @@
 # Define: dmcrypt::encryption
-# 
+#
 # To encrypt a given device with LUKS/dmcrypt.
 #
 # If you plan to use only one secret/key per host for cryptsetup,
@@ -18,7 +18,7 @@
 # [*host_secret*] If one secret/key per host should be used
 #   Optional. Defaults to 'false'
 #
-# [*secret*] A secret to be used in the key. 
+# [*secret*] A secret to be used in the key.
 #   Optional.
 #
 # == Dependencies
@@ -52,7 +52,7 @@ define dmcrypt::encryption (
     }
   }
 
-  $key_file = "/root/${secret_name}.key"
+  $key_file = "/root/.${secret_name}.key"
 
   exec {"luksFormat-${device}":
     path    => '/bin:/usr/bin:/usr/sbin:/sbin',
